@@ -1,14 +1,24 @@
+import { useState } from 'react';
+import { PhotoGrid } from '../components/PhotoGrid.jsx';
+import { PhotoModal } from '../components/PhotoModal.jsx';
+
+
 export function GalleryPage(props) {
+    const [selectedPhoto, setSelectedPhoto] = useState('');
+
+    
     return (
            <main className="gallery">
-                <div className="photo-grid">
-                    {props.photos.map(photo => (
-                        <div className="photo-card">
-                            <img src={photo.urls.full} alt={photo.urls.thumbnail} />
-                            <p>{photo.urls.thumbnail}</p>
-                        </div>    
-                    ))}
-              </div>
+                {selectedPhoto && (
+                    <PhotoModal 
+                        selectedPhoto={selectedPhoto}
+                        setSelectedPhoto={setSelectedPhoto}/>
+                )}
+
+                <PhotoGrid 
+                    photos={props.photos}
+                    setSelectedPhoto={setSelectedPhoto}
+                />
           </main>
     )
 }

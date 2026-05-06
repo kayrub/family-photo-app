@@ -19,8 +19,6 @@ photo data would live in GalleryPage, whereas it would be just displayed in Phot
 function App() {
 
   const [photos, setPhotos] = useState(photosFake);
-  
-  console.log(photos);
 
   return (
     <>
