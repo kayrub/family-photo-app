@@ -20,12 +20,14 @@ export function PhotoModal({selectedPhoto, setSelectedPhoto}) {
 
 
     return (
-        <dialog open>
-            <img src={selectedPhoto.urls.full} />
+        <dialog className="photo-modal" open>
+            <div className="modal-content">
+                <img src={selectedPhoto.urls.full} />
 
-            <button onClick={() => setSelectedPhoto(null)}>
-                Close
-            </button>
+                <button onClick={() => setSelectedPhoto(null)}>
+                    Close
+                </button>
+            </div>
         </dialog>
     )
 }

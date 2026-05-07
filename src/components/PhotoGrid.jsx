@@ -1,15 +1,13 @@
 import { PhotoCard } from './PhotoCard.jsx';
 
-export function PhotoGrid(props) {
+export function PhotoGrid( { photos, setSelectedPhoto }) {
     return(
         <>
         <div className="photo-grid">
-                    {props.photos.map(photo => (
+                    {photos.map(photo => (
                         <PhotoCard 
                             key={photo.id}
-                            fullUrl={photo.urls.full}
-                            thumbnail={photo.urls.thumbnail}
-                            setSelectedPhoto={props.setSelectedPhoto}
+                            setSelectedPhoto={setSelectedPhoto}
                             photo={photo}
                         />
                     ))}

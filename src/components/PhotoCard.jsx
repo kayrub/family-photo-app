@@ -1,11 +1,11 @@
-export function PhotoCard( { setSelectedPhoto, photo, fullUrl, thumbnail }) {
+export function PhotoCard( { setSelectedPhoto, photo}) {
     return(
             <div className="photo-card">
                 <img 
-                    src={fullUrl} 
-                    alt={thumbnail} 
+                    src={photo.urls.full} 
+                    alt={photo.urls.thumbnail} 
                     onClick={() => setSelectedPhoto(photo)}/>
-                <p>{thumbnail}</p>
+                <p>{photo.name}</p>
             </div>    
     )
 }

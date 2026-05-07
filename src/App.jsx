@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar setPhotos={setPhotos}/>
       <div className="main-layout">
           <Sidebar />
           <GalleryPage photos={photos} />

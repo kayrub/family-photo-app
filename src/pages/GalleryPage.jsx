@@ -3,7 +3,7 @@ import { PhotoGrid } from '../components/PhotoGrid.jsx';
 import { PhotoModal } from '../components/PhotoModal.jsx';
 
 
-export function GalleryPage(props) {
+export function GalleryPage( { photos }) {
     const [selectedPhoto, setSelectedPhoto] = useState('');
 
     
@@ -16,7 +16,7 @@ export function GalleryPage(props) {
                 )}
 
                 <PhotoGrid 
-                    photos={props.photos}
+                    photos={photos}
                     setSelectedPhoto={setSelectedPhoto}
                 />
           </main>
