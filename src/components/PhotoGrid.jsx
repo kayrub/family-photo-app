@@ -1,6 +1,7 @@
 import { PhotoCard } from './PhotoCard.jsx';
 
 export function PhotoGrid( { photos, setSelectedPhoto, handleFileDelete, selectedPhoto }) {
+
     return(
         <>
         <div className="photo-grid">

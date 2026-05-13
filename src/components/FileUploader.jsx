@@ -6,6 +6,8 @@ export function FileUploader({setPhotos}) {
     //set the photos
     //type file, multiple, onchange handler, and only accept photos and images
 
+    //albumId 0 needs 
+
     function handleFileChange(e) {
         const files = Array.from(e.target.files);
         const newPhotos = files.map((file) => ({
@@ -13,6 +15,7 @@ export function FileUploader({setPhotos}) {
             name: file.name,
             type: file.type,
             desc: file.name,
+            albumId: 0,
             urls: {
                 thumbnail: file.name,
                 full: URL.createObjectURL(file),

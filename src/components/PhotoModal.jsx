@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function PhotoModal({selectedPhoto, setSelectedPhoto, handleFileDelete, isEditingPhoto, handleOnChangeEditPhoto, handleOnClickEditPhoto, editPhoto, handleSubmitEditPhoto, handleKeyDownEditPhoto}) {
+export function PhotoModal({selectedPhoto, setSelectedPhoto, handleFileDelete, isEditingPhoto, handleOnChangeEditPhoto, handleOnClickEditPhoto, editPhoto, handleSubmitEditPhoto, handleKeyDownEditPhoto, selectedAlbum}) {
 
      useEffect(() => {
 
@@ -27,7 +27,7 @@ export function PhotoModal({selectedPhoto, setSelectedPhoto, handleFileDelete, i
                 <div>
                     <p>{selectedPhoto.name}</p>
                     <p>{selectedPhoto.desc}</p>
-                    <p>{selectedPhoto.album}</p>
+                    <p>{selectedAlbum.name}</p>
                     <button onClick={() => handleOnClickEditPhoto(selectedPhoto)}>
                     Edit
                 </button>

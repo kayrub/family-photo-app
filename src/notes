@@ -40,3 +40,23 @@ Concepts
 derived state
 filtering
 component communication
+
+DAY 5 — Albums Feature
+Goal
+
+Organize photos into albums.
+
+Tasks
+Create album functionality
+add album
+select album
+filter photos
+Sidebar album list
+Optional
+
+Album photo count
+
+Concepts
+derived state
+filtering
+component communication

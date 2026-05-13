@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar.jsx';
 import { Sidebar } from './components/Sidebar.jsx';
 import { GalleryPage } from './pages/GalleryPage.jsx';
 import { photosFake } from './data.jsx';
+
 // import { FileUpload } from './FileUpload.jsx';
 // import { FileUploader } from './components/FileUploader.jsx';
 
@@ -18,15 +19,29 @@ photo data would live in GalleryPage, whereas it would be just displayed in Phot
 */
 function App() {
 
+  const albumsFake = [
+    { id: 0, name: "Default" },
+    { id: 1, name: "Baby" },
+    { id: 2, name: "Family" },
+  ]
+
   const [photos, setPhotos] = useState(photosFake);
+  const [albums, setAlbums] = useState(albumsFake);
+  const [selectedAlbumId, setSelectedAlbumId] = useState(null);
+  
+
 
   return (
     <>
       <Navbar setPhotos={setPhotos}/>
       <div className="main-layout">
-          <Sidebar />
-          <GalleryPage photos={photos}
-          setPhotos={setPhotos} />
+          <Sidebar photos={photos} setSelectedAlbumId={setSelectedAlbumId} albums={albums}/>
+          <GalleryPage 
+          photos={photos}
+          setPhotos={setPhotos} 
+          selectedAlbumId={selectedAlbumId}
+          albums={albums}
+          setAlbums={setAlbums}/>
       </div>
     
     </>

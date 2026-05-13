@@ -3,10 +3,26 @@ import { PhotoGrid } from '../components/PhotoGrid.jsx';
 import { PhotoModal } from '../components/PhotoModal.jsx';
 
 
-export function GalleryPage( { photos, setPhotos }) {
+export function GalleryPage( { photos, setPhotos , selectedAlbumId, albums, setAlbums}) {
     const [selectedPhoto, setSelectedPhoto] = useState('');
     const [isEditingPhoto, setIsEditingPhoto] = useState(false);
     const [editPhoto, setEditPhoto] = useState({ name: '', desc: '', album: ''});
+
+    // console.log(photos);
+
+    const albumsById = albums.reduce((acc, album) => {
+    acc[album.id] = album;
+    return acc;
+    }, {});
+
+    const albumsByName = albums.reduce((acc, album) => {
+        acc[album.name] = album;
+        return acc;
+    }, {});
+
+    const displayedPhotos = (selectedAlbumId !== null)
+        ? photos.filter(photo => photo.albumId === selectedAlbumId)
+        : photos;
 
     function handleFileDelete(photoToDelete) {
         const filteredPhotos = photos.filter(photo => photo.id !== photoToDelete.id);
@@ -16,21 +32,49 @@ export function GalleryPage( { photos, setPhotos }) {
     }    
 
     function handleSubmitEditPhoto() {
+        const enteredAlbumName = editPhoto.album;
+        
+        console.log("handleSubmitEditPhoto enteredAlbumName: ", enteredAlbumName)
+        // try finding existing album
+        let currAlbum = albumsByName[enteredAlbumName];
+
+        let albumId;
+        // if album exists
+        if (currAlbum) {
+            albumId = currAlbum.id;
+            console.log('handleSubmitEditPhoto currAlbum.id: ', currAlbum.id);
+        }
+        // if album DOES NOT exist
+        else {
+            const newAlbum = {
+                id: crypto.randomUUID(),
+                name: enteredAlbumName,
+            }
+
+            setAlbums(prev => [...prev, newAlbum]);
+
+            albumId = newAlbum.id;
+        }
         //assign an updated selected photo
         const updatedSelectedPhoto = {
             ...selectedPhoto,
-            ...editPhoto,
+           name: editPhoto.name,
+           desc: editPhoto.desc,
+           albumId: albumId 
         }
+        console.log("handleSubmitEditPhoto updatedSelectedPhoto: ", updatedSelectedPhoto);
+
         setPhotos(prev => 
             prev.map(photo =>
-                photo.id === selectedPhoto.id
-                    ? {...photo, ...editPhoto}
+            {console.log("inside setPhotos: ", photo.id, updatedSelectedPhoto.id, editPhoto)
+                return photo.id === updatedSelectedPhoto.id
+                    ? {...photo, ...updatedSelectedPhoto}
                     : photo
-            )
+            })
         )
 
+
         setSelectedPhoto(updatedSelectedPhoto);
-        console.log('new photos submitted: ',photos)
         setIsEditingPhoto(false);
     }
 
@@ -53,7 +97,7 @@ export function GalleryPage( { photos, setPhotos }) {
         setEditPhoto({
             name: photoToEdit.name,
             desc: photoToEdit.desc,
-            album: photoToEdit.album,
+            album: albumsById[photoToEdit.albumId].name,
         })
         // console.log(editPhoto); 
         // remember, setting state is async, so it doesnt log as updated eventhough it is or can be
@@ -91,11 +135,12 @@ export function GalleryPage( { photos, setPhotos }) {
                         editPhoto={editPhoto}
                         isEditingPhoto={isEditingPhoto}
                         setIsEditingPhoto={setIsEditingPhoto}
+                        selectedAlbum={albumsById[selectedPhoto.albumId]}
                         />
                 )}
 
                 <PhotoGrid 
-                    photos={photos}
+                    photos={displayedPhotos}
                     setSelectedPhoto={setSelectedPhoto}
                     handleFileDelete={handleFileDelete}
                     selectedPhoto={selectedPhoto}
